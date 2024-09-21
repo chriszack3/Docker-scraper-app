@@ -11,7 +11,7 @@ services:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
-      MYSQL_DB: todos
+      MYSQL_DB: headlines
 
   mysql:
     image: mysql:8.0
@@ -19,7 +19,7 @@ services:
       - todo-mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: todos
+      MYSQL_DATABASE: headlines
 
 volumes:
   todo-mysql-data:
