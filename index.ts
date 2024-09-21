@@ -1,14 +1,16 @@
-import { init, addHeadlines, getAllHeadlines } from './persistence/mysql';
+import {chromium} from 'playwright';
 
-init().then((res) => {
-    console.log('Initialized');
-    console.log(res);
-    addHeadlines().then((res) => {
-        console.log('Added headlines');
-        console.log(res);
-        getAllHeadlines().then((res) => {
-            console.log('Got all headlines');
-            console.log(res);
-        });
-    });
-})
+(async () => { 
+    const browser = await chromium.launch();
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto('https://www.google.com');
+    console.log(await page.title());
+    console.log('done')
+    await browser.close();
+})()
+
+// import {chromium} from 'playwright';
+
+// console.log('Hello, therwe world!');
+// console.log(chromium);
