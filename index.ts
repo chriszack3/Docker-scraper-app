@@ -52,6 +52,7 @@ chromium.use(stealth());
         try {
             const headlines = await scrapeGoogle(page, 'trump harris second debate');
             console.log(headlines);
+            console.log('Done');
         } catch (error) {
             console.log(error);
         }
