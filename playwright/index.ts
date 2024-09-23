@@ -41,4 +41,21 @@ const {
             console.error(error);
         }
     });
+    setInterval(async () => { 
+        await cluster.queue(async ({ page }: { page: Page }) => {
+            try {
+                console.log('Beginning scrape...');
+                const headlines = await scrapeGoogle(page, searchTerm);
+                console.log('Scrape successful!');
+                console.log('Headlines:', headlines);
+                console.log('Adding headlines to database...');
+                await addHeadlines(headlines)
+                console.log('Headlines added to database!');
+                console.log('Done!')
+            } catch (error) {
+                console.log('Error during scrape:');
+                console.error(error);
+            }
+        });
+    }, 30000)
 })();
