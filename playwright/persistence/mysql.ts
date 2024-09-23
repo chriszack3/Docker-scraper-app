@@ -35,11 +35,14 @@ const init = async() => {
     return await pool.query('CREATE TABLE IF NOT EXISTS Another_Debate_2024 (id INT AUTO_INCREMENT PRIMARY KEY, scrapedAtMS BIGINT, publisher VARCHAR(255), title VARCHAR(255) UNIQUE, url VARCHAR(255), description VARCHAR(255), publishedAgo VARCHAR(255));')
 }
 
-const addHeadlines = async () => {
-    return await pool.query(
-        'INSERT INTO Another_Debate_2024 (scrapedAtMS, publisher, title, url, description, publishedAgo) VALUES (?,?,?,?,?,?)',
-        [Date.now(), 'sgasf', 'asdfsdss', 'dg', 'fsdfgsdgfsdfgsd', 'asfdasdfasfasfsdsad']
-    );
+const addHeadlines = async (records: any) => {
+    const record = records[0];
+    return await records.map(async (rec: any) => { 
+        return await pool.query(
+            `INSERT INTO Another_Debate_2024 (scrapedAtMS, publisher, title, url, description, publishedAgo) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE title=title;`,
+            [rec.scrapedAtMS, rec.publisher, rec.title, rec.url, rec.description, rec.publishedAgo]
+        );
+    })
 }
 
 const getAllHeadlines = async () => { 
