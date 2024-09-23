@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: .
+      context: ./playwright
       dockerfile: Dockerfile
     pull_policy: always
     command: sh -c "yarn start"
