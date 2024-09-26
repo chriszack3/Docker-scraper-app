@@ -1,5 +1,5 @@
 services:
-  app:
+  playwright-app-1:
     build:
       context: ./playwright
       dockerfile: Dockerfile
@@ -17,7 +17,7 @@ services:
       MYSQL_TABLE: Another_Debate_2024
       SEARCH_TERM: trump harris second debate
 
-  app2:
+  playwright-app-2:
     build:
       context: ./playwright
       dockerfile: Dockerfile
