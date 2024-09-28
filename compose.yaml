@@ -52,10 +52,10 @@ services:
       MYSQL_DB: headlines
     develop:
       watch:
-        - path: ./backend/src
+        - path: ./dashboard/backend/src
           action: sync
           target: /usr/local/app/src
-        - path: ./backend/package.json
+        - path: ./dashboard/backend/package.json
           action: rebuild
     labels:
       traefik.http.routers.backend.rule: Host(`localhost`) && PathPrefix(`/api`)
