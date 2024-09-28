@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     command: sh -c "yarn start"
     ports:
-      - 127.0.0.1:3000:3000
+      - 127.0.0.1:3002:3000
     working_dir: /app
     # volumes:
     #   - ./:/app
@@ -66,10 +66,10 @@ services:
       target: client-dev
     develop:
       watch:
-        - path: ./client/src
+        - path: ./dashboard/client/src
           action: sync
           target: /usr/local/app/src
-        - path: ./client/package.json
+        - path: ./dashboard/client/package.json
           action: rebuild
     labels:
       traefik.http.routers.client.rule: Host(`localhost`)
