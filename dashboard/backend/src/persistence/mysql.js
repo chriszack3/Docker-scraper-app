@@ -74,9 +74,25 @@ async function getItems() {
     });
 }
 
+async function getHeadlines() {
+    return new Promise((acc, rej) => {
+        pool.query(`SELECT * FROM Israel_Hez_Oct`, (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map((item) =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
 
 module.exports = {
     init,
     teardown,
     getItems,
+    getHeadlines,
 };

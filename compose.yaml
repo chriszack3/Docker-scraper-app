@@ -16,6 +16,7 @@ services:
       MYSQL_DB: headlines
       MYSQL_TABLE: Another_Debate_2024
       SEARCH_TERM: trump harris second debate
+      DATA_TOKEN: 0x78234aafc88ab34b177109a5448cd90d7d1fd4efea1983d19fd67eee78ff0239
 
   playwright-app-2:
     build:
@@ -34,6 +35,8 @@ services:
       MYSQL_DB: headlines
       MYSQL_TABLE: Israel_Hez_Oct
       SEARCH_TERM: israel hezbolloh
+      DATA_TOKEN: 0x37a570f13c5e78f85eef34de2430736e15691dca8f5820946388bc15b9d956e7
+
   proxy:
     image: traefik:v2.11
     command: --providers.docker

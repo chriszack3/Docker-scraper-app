@@ -2,11 +2,13 @@ const express = require('express');
 const app = express();
 const db = require('./persistence/mysql');
 const getItems = require('./routes/getItems');
+const getHeadlines = require('./routes/getHeadlines');
 
 app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 
 app.get('/api/items', getItems);
+app.get('/api/getHeadlines', getHeadlines);
 
 db.init()
     .then(() => {

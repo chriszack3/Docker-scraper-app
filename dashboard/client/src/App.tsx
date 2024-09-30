@@ -1,14 +1,21 @@
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import { useEffect } from 'react';
 
 function App() {
+    useEffect(() => { 
+        (async () => { 
+            const response = await fetch('/api/getHeadlines');
+            const body = await response.json();
+            console.log(body);
+        })()
+    }, []);
     return (
         <Container>
             <Row>
                 <Col>
                     <h1>
-                        sd
                         asfasdfsdfs
                     </h1>
                 </Col>

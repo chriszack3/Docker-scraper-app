@@ -7,6 +7,7 @@ const {
     MYSQL_PASSWORD: PASSWORD,
     MYSQL_DB: DB,
     MYSQL_TABLE: TABLE,
+    DATA_TOKEN: TOKEN
 } = process.env;
 // Create the connection pool. The pool-specific settings are the defaults
 let pool: mysql.Pool;
@@ -32,8 +33,10 @@ const init = async() => {
         database,
         charset: 'utf8mb4',
     });
-
-    return await pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE} (id INT AUTO_INCREMENT PRIMARY KEY, scrapedAtMS BIGINT, publisher VARCHAR(255), title VARCHAR(255) UNIQUE, url VARCHAR(255), description VARCHAR(255), publishedAgo VARCHAR(255));`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE} (id INT AUTO_INCREMENT PRIMARY KEY, scrapedAtMS BIGINT, publisher VARCHAR(255), title VARCHAR(255) UNIQUE, url VARCHAR(255), description VARCHAR(255), publishedAgo VARCHAR(255));`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS MARKET_TOKENS (id INT AUTO_INCREMENT PRIMARY KEY, token VARCHAR(255) UNIQUE, name VARCHAR(255));`)
+    await pool.query(`INSERT INTO MARKET_TOKENS (token, name) VALUES ('${TOKEN}', '${TABLE}') ON DUPLICATE KEY UPDATE token=token;`)
+    return 
 }
 
 const addHeadlines = async (records: any) => {
