@@ -1,30 +1,27 @@
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import { useEffect } from 'react';
+import { Col, Row, Container, Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Market } from './utils/types';
+import MarketSelect from './components/MarketSelect/MarketSelect';
+import './index.scss';
+
 
 function App() {
+    const [response, setResponse] = useState<Market[]>();
+
     useEffect(() => { 
         (async () => { 
-            const response = await fetch('/api/getMarkets');
-            const body = await response.json();
-            console.log(body);
+            const res = await fetch('/api/getMarkets');
+            const body = await res.json();
+            setResponse(body);
         })()
     }, []);
     return (
         <Container>
-            <Row>
-                <Col>
-                    <h1>
-                        asfasdfsdfs
-                    </h1>
-                </Col>
-                <Col>
-                    <h1>
-                        sdfasdfasdfasdf
-                    </h1>
-                </Col>
-            </Row>
+            {
+                response?.map((market: Market) => (
+                    <MarketSelect key={market.id} market={market} />
+                ))
+            }
         </Container>
     );
 }
