@@ -2,8 +2,6 @@ import { Col, Row, Container, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Market } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
-import './index.scss';
-
 
 function App() {
     const [response, setResponse] = useState<Market[]>();

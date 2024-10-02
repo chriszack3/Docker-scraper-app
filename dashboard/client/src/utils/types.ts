@@ -1,5 +1,5 @@
 export type Market = {
-    id: string;
+    id: number;
     name: string;
     description: string;
 }
