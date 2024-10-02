@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 function App() {
     useEffect(() => { 
         (async () => { 
-            const response = await fetch('/api/getHeadlines');
+            const response = await fetch('/api/getMarkets');
             const body = await response.json();
             console.log(body);
         })()

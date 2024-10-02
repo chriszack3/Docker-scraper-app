@@ -89,10 +89,26 @@ async function getHeadlines() {
     });
 }
 
+async function getMarkets() {
+    return new Promise((acc, rej) => {
+        pool.query(`SELECT * FROM MARKET_TOKENS`, (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map((item) =>
+                    Object.assign({}, item, {
+                        completed: item.completed === 1,
+                    }),
+                ),
+            );
+        });
+    });
+}
+
 
 module.exports = {
     init,
     teardown,
     getItems,
     getHeadlines,
+    getMarkets,
 };
