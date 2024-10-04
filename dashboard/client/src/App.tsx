@@ -2,6 +2,7 @@ import { Col, Row, Stack, Button, Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Market } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
+import Provider from './redux/Provider';
 import './App.scss';
 
 function App() {
@@ -15,13 +16,15 @@ function App() {
         })()
     }, []);
     return (
-        <div className='markets_container'>
-            {
-                response?.map((market: Market) => (
-                    <MarketSelect key={market.id} market={market} />
-                ))
-            }
-        </div>
+        <Provider>
+            <div className='markets_container'>
+                {
+                    response?.map((market: Market) => (
+                        <MarketSelect key={market.id} market={market} />
+                    ))
+                }
+            </div>
+        </Provider>
     );
 }
 
