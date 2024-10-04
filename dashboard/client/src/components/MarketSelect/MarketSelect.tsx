@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Col, Row, Stack, Button } from 'react-bootstrap';
 import { Market } from '../../utils/types'
 import checkmark from '../../assets/checkmark.png'
 import xmark from '../../assets/xmark.png'
@@ -23,19 +22,25 @@ const MarketSelect = ({ market }: { market: Market }) => {
         setSelected(!selected);
     }
     return (
-        <Stack direction='horizontal'>
-            <Button className={theme} onClick={() => handleClick(selected)}>Track</Button>
-            <h3>{name}</h3>
-            {
-                selected ? <img style={{
-                    width: '20px',
-                    height: '20px',
-                }} src={checkmark} /> : <img style={{
-                    width: '20px',
-                    height: '20px',
-                }} src={xmark} />
-            }
-        </Stack>
+        <div className='market--row'>
+            <div className='market_trackBtn--col'>
+                <button className={theme} onClick={() => handleClick(selected)}>Track</button>
+            </div>
+            <div className='market_name--col'>
+                <h3>{name}</h3>
+            </div>
+            <div className='market_status--col'>
+                {
+                    selected ? <img style={{
+                        width: '25px',
+                        height: '25px',
+                    }} src={checkmark} /> : <img style={{
+                        width: '25px',
+                        height: '25px',
+                    }} src={xmark} />
+                }
+            </div>
+        </div>
     )
 }
 

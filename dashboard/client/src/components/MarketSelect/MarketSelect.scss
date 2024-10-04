@@ -1,5 +1,27 @@
 @import '../../styles/variables';
 
+
+.market--row {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+.market--row:hover {
+    background-color: darken($backgroundGrey, 10%);
+}
+.market_trackBtn--col {
+    width: fit-content;
+}
+.market_name--col {
+    width: 100%;
+    overflow: scroll;
+    text-align: right;
+    margin: 0;
+    padding: 0 5px;
+}
+.market_status--col {
+    margin-left: auto;
+}
 .button_theme--red {
     background-color: red;
     border-color: $redBorder;
