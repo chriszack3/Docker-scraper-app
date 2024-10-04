@@ -10,7 +10,7 @@ import './MarketSelect.scss'
 const themes: ['button_theme--red', 'button_theme--blue'] = ['button_theme--red', 'button_theme--blue'];
 
 const MarketSelect = ({ market }: { market: Market }) => { 
-    const { id, name } = market;
+    const { id, name, token } = market;
 
     //this will come from state
     const theme = themes[id - 1];
@@ -22,7 +22,7 @@ const MarketSelect = ({ market }: { market: Market }) => {
     const dispatch = useDispatch();
 
     const handleClick = (selected: boolean) => { 
-        selected ? dispatch(removeMarket({ id })) : dispatch(addMarket({ id, name }));
+        selected ? dispatch(removeMarket({ id })) : dispatch(addMarket({ id, name, token }));
         setSelected(!selected);
 
     }

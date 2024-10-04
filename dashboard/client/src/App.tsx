@@ -15,20 +15,31 @@ function App() {
             const res = await fetch('/api/getMarkets');
             const body = await res.json();
             setResponse(body);
+            console.log(body);
         })()
     }, []);
 
-    useEffect(() => { 
-        console.log(trackedMarkets);
-    }, [trackedMarkets]);
-
     return (
-        <div className='markets_container'>
-            {
-                response?.map((market: Market) => (
-                    <MarketSelect key={market.id} market={market} />
-                ))
-            }
+        <div>
+            <div className='markets_container'>
+                {
+                    response?.map((market: Market) => (
+                        <MarketSelect key={market.id} market={market} />
+                    ))
+                }
+            </div>
+            <div>
+                {
+                    trackedMarkets?.map((market: Market) => {
+                        console.log(market);
+                        return (
+                            <div key={market.id}>
+                                <h3>{market.name}</h3>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 }
