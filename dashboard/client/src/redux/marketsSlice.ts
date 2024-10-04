@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { State } from '../utils/types';
 
 export const marketsSlice = createSlice({
     name: `markets`,
@@ -6,17 +7,20 @@ export const marketsSlice = createSlice({
         markets: [],
     },
     reducers: {
-        addMarket: (state: any, action) => {
+        addMarket: (state: State, action) => {
             state.markets.push(action.payload);
         },
-        clearMarkets: (state: any) => {
+        clearMarkets: (state: State) => {
             state.markets = [];
         },
+        removeMarket: (state: State, action) => { 
+            state.markets = state.markets.filter(market => market.id !== action.payload.id);
+        }
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addMarket, clearMarkets } =
+export const { addMarket, removeMarket, clearMarkets } =
     marketsSlice.actions;
 
 export default marketsSlice.reducer;

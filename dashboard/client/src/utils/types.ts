@@ -3,3 +3,8 @@ export type Market = {
     name: string;
     description: string;
 }
+
+
+export type State = {
+    markets: Market[];
+}

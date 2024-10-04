@@ -3,7 +3,7 @@ import { Market } from '../../utils/types'
 import checkmark from '../../assets/checkmark.png'
 import xmark from '../../assets/xmark.png'
 import { useDispatch, useSelector } from 'react-redux';
-import { addMarket } from '../../redux/marketsSlice';
+import { addMarket, removeMarket } from '../../redux/marketsSlice';
 import './MarketSelect.scss'
 
 //this will come from state
@@ -19,17 +19,13 @@ const MarketSelect = ({ market }: { market: Market }) => {
     //this will be redux
     const [selected, setSelected] = useState(false);
     //that will be redux
-    const markets = useSelector((state: any) => state.markets);
     const dispatch = useDispatch();
 
     const handleClick = (selected: boolean) => { 
+        selected ? dispatch(removeMarket({ id })) : dispatch(addMarket({ id, name }));
         setSelected(!selected);
-        dispatch(addMarket(market));
-    }
 
-    useEffect(() => { 
-        console.log(markets);
-    }, [markets])
+    }
 
     return (
         <div className='market--row'>
