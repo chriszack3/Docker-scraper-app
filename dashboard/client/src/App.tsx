@@ -1,4 +1,4 @@
-import { Col, Row, Container, Button } from 'react-bootstrap';
+import { Col, Row, Stack, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Market } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
@@ -14,13 +14,13 @@ function App() {
         })()
     }, []);
     return (
-        <Container>
+        <Stack gap={2} direction={"vertical"}>
             {
                 response?.map((market: Market) => (
                     <MarketSelect key={market.id} market={market} />
                 ))
             }
-        </Container>
+        </Stack>
     );
 }
 

@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+
+.button_theme--red {
+    background-color: red;
+    border-color: $redBorder;
+}
+
+.button_theme--blue {
+    background-color: $blue;
+    border-color: $blueBorder;
+}
