@@ -11,11 +11,13 @@ function App() {
     const [response, setResponse] = useState<Market[]>();
 
     const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
+    const tokens = useSelector((state: State) => state.tokens);
 
     const markets = useSelector((state: State) => state.markets);
     const dispatch = useDispatch();
 
     //runs FIRST -- happens first time component is rendered
+    //fetches the markets that can be tracked from table in mysql database controlled by me
     useEffect(() => { 
         (async () => { 
             const res = await fetch('/api/getMarkets');
@@ -25,6 +27,7 @@ function App() {
     }, []);
 
     //runs SECOND -- happens as soon as async function in useEffect completes and updates response state
+    //fetches the details of the markets that can be tracked from the polymarket api
     useEffect(() => { 
         console.log('response', response);
         
@@ -39,27 +42,26 @@ function App() {
     }, [response])
 
     useEffect(() => { 
-        console.log('markets', markets);
     }, [markets])
 
     useEffect(() => { 
-    }, [trackedMarkets])
+        console.log('tokens', tokens);
+    }, [tokens])
 
-    
-        useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
-            onMessage: (msg) => {
-                console.log(msg);
-            },
-            onError: (e) => {
-                console.log(e);
-            },
-            onOpen: () => {
-                console.log('connected');
-            },
-            onClose: () => {
-                console.log('disconnected');
-            }
-        })
+    useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
+        onMessage: (msg) => {
+            console.log(msg);
+        },
+        onError: (e) => {
+            console.log(e);
+        },
+        onOpen: () => {
+            console.log('connected');
+        },
+        onClose: () => {
+            console.log('disconnected');
+        }
+    })
     
 
     return (
@@ -74,13 +76,10 @@ function App() {
             <div>
                 {
                     trackedMarkets?.map((market: Market) => {
-                        const marketDetails = markets.find((m) => m.condition_id === market.token);
                         return (
-                            marketDetails && (
-                                <MarketDetails key={marketDetails.condition_id} market={marketDetails}>
-                                    <h1>Market Details Children....</h1>
-                                </MarketDetails>
-                            )
+                            <MarketDetails key={market.token} question_id={market.token}>
+                                <h1>Market Details Children....</h1>
+                            </MarketDetails>
                         )
                     })
                 }

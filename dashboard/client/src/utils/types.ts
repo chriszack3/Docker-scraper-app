@@ -8,6 +8,15 @@ export type Market = {
 export type State = {
     trackedMarkets: Market[];
     markets: MarketDetails[];
+    tokens: {
+        question_id: string;
+        tokens: {
+            token_id: string;
+            outcome: string;
+            price: number;
+            winner: boolean;
+        }[];
+    }[];
 }
 
 export type MarketDetails = {

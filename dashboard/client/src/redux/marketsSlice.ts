@@ -6,6 +6,7 @@ export const marketsSlice = createSlice({
     initialState: {
         trackedMarkets: [],
         markets: [],
+        tokens: [],
     },
     reducers: {
         /*
@@ -23,8 +24,19 @@ export const marketsSlice = createSlice({
         /*
         * reducers for markets
         */
-        addMarket: (state: State, action) => { 
-            state.markets.push(action.payload);
+        addMarket: (state: State, action) => {
+            const isDuplicate = state.markets.find(market => market.question_id === action.payload.question_id)
+            if (!isDuplicate) {
+                state.markets.push(action.payload);
+            }
+            console.log('state', action.payload.tokens);
+            const isTokenDuplicate = state.tokens.find(token => token.question_id === action.payload.question_id);
+            if (!isTokenDuplicate) { 
+                state.tokens.push({
+                    question_id: action.payload.question_id,
+                    tokens: action.payload.tokens,
+                });
+            }
         },
     },
 });
