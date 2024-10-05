@@ -1,4 +1,4 @@
-import { Col, Row, Stack, Button, Container } from 'react-bootstrap';
+import useWebSocket from 'react-use-websocket';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Market, State } from './utils/types';
@@ -8,16 +8,46 @@ import './App.scss';
 function App() {
     const [response, setResponse] = useState<Market[]>();
 
-    const trackedMarkets = useSelector((state: State) => state.markets);
+    const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
 
+    //runs FIRST -- happens first time component is rendered
     useEffect(() => { 
         (async () => { 
             const res = await fetch('/api/getMarkets');
             const body = await res.json();
             setResponse(body);
-            console.log(body);
         })()
     }, []);
+
+    //runs SECOND -- happens as soon as async function in useEffect completes and updates response state
+    useEffect(() => { 
+        (async () => {
+            const res = await fetch(`https://clob.polymarket.com/markets/${response?.[0].token}`);
+            const body = await res.json();
+            console.log('body: ', body);
+        })()
+    }, [response])
+
+    useEffect(() => { 
+        console.log(trackedMarkets);
+    }, [trackedMarkets])
+
+    
+        useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
+            onMessage: (msg) => {
+                console.log(msg);
+            },
+            onError: (e) => {
+                console.log(e);
+            },
+            onOpen: () => {
+                console.log('connected');
+            },
+            onClose: () => {
+                console.log('disconnected');
+            }
+        })
+    
 
     return (
         <div>
@@ -31,7 +61,6 @@ function App() {
             <div>
                 {
                     trackedMarkets?.map((market: Market) => {
-                        console.log(market);
                         return (
                             <div key={market.id}>
                                 <h3>{market.name}</h3>

@@ -4,23 +4,24 @@ import { State } from '../utils/types';
 export const marketsSlice = createSlice({
     name: `markets`,
     initialState: {
+        trackedMarkets: [],
         markets: [],
     },
     reducers: {
-        addMarket: (state: State, action) => {
-            state.markets.push(action.payload);
+        addTrackedMarket: (state: State, action) => {
+            state.trackedMarkets.push(action.payload);
         },
-        clearMarkets: (state: State) => {
-            state.markets = [];
+        clearTrackedMarkets: (state: State) => {
+            state.trackedMarkets = [];
         },
-        removeMarket: (state: State, action) => { 
-            state.markets = state.markets.filter(market => market.id !== action.payload.id);
+        removeTrackedMarket: (state: State, action) => { 
+            state.trackedMarkets = state.trackedMarkets.filter(market => market.id !== action.payload.id);
         }
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addMarket, removeMarket, clearMarkets } =
+export const { addTrackedMarket, removeTrackedMarket, clearTrackedMarkets } =
     marketsSlice.actions;
 
 export default marketsSlice.reducer;
