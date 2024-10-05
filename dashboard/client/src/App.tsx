@@ -1,6 +1,7 @@
 import useWebSocket from 'react-use-websocket';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addMarket } from './redux/marketsSlice';
 import { Market, State } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
 import './App.scss';
@@ -9,6 +10,9 @@ function App() {
     const [response, setResponse] = useState<Market[]>();
 
     const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
+
+    const markets = useSelector((state: State) => state.markets);
+    const dispatch = useDispatch();
 
     //runs FIRST -- happens first time component is rendered
     useEffect(() => { 
@@ -21,15 +25,23 @@ function App() {
 
     //runs SECOND -- happens as soon as async function in useEffect completes and updates response state
     useEffect(() => { 
-        (async () => {
-            const res = await fetch(`https://clob.polymarket.com/markets/${response?.[0].token}`);
-            const body = await res.json();
-            console.log('body: ', body);
+        console.log('response', response);
+        
+        response && (async () => {
+            for (let i = 0; i < response.length; i++) {
+                const token = response[i].token;
+                const res = await fetch(`https://clob.polymarket.com/markets/${token}`);
+                const body = await res.json();
+                dispatch(addMarket(body));
+            }
         })()
     }, [response])
 
     useEffect(() => { 
-        console.log(trackedMarkets);
+        console.log('markets', markets);
+    }, [markets])
+
+    useEffect(() => { 
     }, [trackedMarkets])
 
     
