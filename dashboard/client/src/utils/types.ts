@@ -10,7 +10,7 @@ export type State = {
     markets: MarketDetails[];
 }
 
-type MarketDetails = {
+export type MarketDetails = {
     enable_order_book: boolean;
     active: boolean;
     closed: boolean;

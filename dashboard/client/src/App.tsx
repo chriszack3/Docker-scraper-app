@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addMarket } from './redux/marketsSlice';
 import { Market, State } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
+import MarketDetails from './components/MarketDetails/MarketDetails';
 import './App.scss';
 
 function App() {
@@ -73,10 +74,13 @@ function App() {
             <div>
                 {
                     trackedMarkets?.map((market: Market) => {
+                        const marketDetails = markets.find((m) => m.condition_id === market.token);
                         return (
-                            <div key={market.id}>
-                                <h3>{market.name}</h3>
-                            </div>
+                            marketDetails && (
+                                <MarketDetails key={marketDetails.condition_id} market={marketDetails}>
+                                    <h1>Market Details Children....</h1>
+                                </MarketDetails>
+                            )
                         )
                     })
                 }
