@@ -1,15 +1,15 @@
-import useWebSocket from 'react-use-websocket';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMarket } from './redux/marketsSlice';
 import { Market, State } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
 import MarketDetails from './components/MarketDetails/MarketDetails';
+import OrderBook from './components/OrderBook/OrderBook';
 import './App.scss';
 
 function App() {
     const [response, setResponse] = useState<Market[]>();
-    
+
     const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
     const tokens = useSelector((state: State) => state.tokens);
 
@@ -39,21 +39,6 @@ function App() {
         })()
     }, [response])
 
-    useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
-        onMessage: (msg) => {
-            console.log(msg);
-        },
-        onError: (e) => {
-            console.log(e);
-        },
-        onOpen: () => {
-            console.log('connected');
-        },
-        onClose: () => {
-            console.log('disconnected');
-        }
-    })
-
     return (
         <div>
             <div className='markets_container'>
@@ -67,8 +52,10 @@ function App() {
                 {
                     trackedMarkets?.map((market: Market) => {
                         return (
-                            <MarketDetails key={market.token} question_id={market.token}>
+                            <MarketDetails key={market.token} condition_id={market.token}>
                                 <h1>Market Details Children....</h1>
+                                <OrderBook outcome='Yes' condition_id={market.token} />
+                                <OrderBook outcome='No' condition_id={market.token} />
                             </MarketDetails>
                         )
                     })

@@ -33,9 +33,9 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: headlines
-      MYSQL_TABLE: Israel_Hez_Oct
-      SEARCH_TERM: israel hezbolloh
-      DATA_TOKEN: 0x37a570f13c5e78f85eef34de2430736e15691dca8f5820946388bc15b9d956e7
+      MYSQL_TABLE: Israel_Iran_Response
+      SEARCH_TERM: israel iran response
+      DATA_TOKEN: 0x324406e91743e6fe0f42221b872e4d8ee7279d876af357f3403a30e622f73195
 
   proxy:
     image: traefik:v2.11

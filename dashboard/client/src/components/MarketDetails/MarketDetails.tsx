@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { MarketDetails, State } from "../../utils/types";
 import './MarketDetails.scss'
 
-const Market = ({ children, question_id }: {
+const Market = ({ children, condition_id }: {
     children: React.ReactNode;
-    question_id: string;
+    condition_id: string;
 }) => { 
     const markets = useSelector((state: State) => state.markets);
-    const marketDetails = markets.find((m) => m.condition_id === question_id);
+    const marketDetails = markets.find((m) => m.condition_id === condition_id);
     if (!marketDetails) return null;
     const { question, description } = marketDetails
     
