@@ -9,7 +9,7 @@ import './App.scss';
 
 function App() {
     const [response, setResponse] = useState<Market[]>();
-
+    
     const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
     const tokens = useSelector((state: State) => state.tokens);
 
@@ -29,8 +29,6 @@ function App() {
     //runs SECOND -- happens as soon as async function in useEffect completes and updates response state
     //fetches the details of the markets that can be tracked from the polymarket api
     useEffect(() => { 
-        console.log('response', response);
-        
         response && (async () => {
             for (let i = 0; i < response.length; i++) {
                 const token = response[i].token;
@@ -40,13 +38,6 @@ function App() {
             }
         })()
     }, [response])
-
-    useEffect(() => { 
-    }, [markets])
-
-    useEffect(() => { 
-        console.log('tokens', tokens);
-    }, [tokens])
 
     useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
         onMessage: (msg) => {
@@ -62,7 +53,6 @@ function App() {
             console.log('disconnected');
         }
     })
-    
 
     return (
         <div>

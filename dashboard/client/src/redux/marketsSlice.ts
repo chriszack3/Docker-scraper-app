@@ -30,10 +30,10 @@ export const marketsSlice = createSlice({
                 state.markets.push(action.payload);
             }
             console.log('state', action.payload.tokens);
-            const isTokenDuplicate = state.tokens.find(token => token.question_id === action.payload.question_id);
+            const isTokenDuplicate = state.tokens.find(token => token.question_id === action.payload.condition_id);
             if (!isTokenDuplicate) { 
                 state.tokens.push({
-                    question_id: action.payload.question_id,
+                    question_id: action.payload.condition_id,
                     tokens: action.payload.tokens,
                 });
             }
