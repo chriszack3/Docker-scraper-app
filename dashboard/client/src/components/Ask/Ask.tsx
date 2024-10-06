@@ -1,4 +1,4 @@
-const Bid = ({ price, size }: { price: string, size: string}) => { 
+const Ask = ({ price, size }: { price: string, size: string }) => {
     return (
         <div className="bidTable--row">
             <span>{price}</span>
@@ -7,4 +7,4 @@ const Bid = ({ price, size }: { price: string, size: string}) => {
     )
 }
 
-export default Bid;
+export default Ask;

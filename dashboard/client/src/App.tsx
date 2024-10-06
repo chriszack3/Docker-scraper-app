@@ -51,10 +51,12 @@ function App() {
             <div>
                 {
                     trackedMarkets?.map((market: Market) => {
+                        console.log('market.token', market.token);
                         return (
                             <MarketDetails key={market.token} condition_id={market.token}>
-                                <h1>Market Details Children....</h1>
+                                <h1>Yes</h1>
                                 <OrderBook outcome='Yes' condition_id={market.token} />
+                                <h1>No</h1>
                                 <OrderBook outcome='No' condition_id={market.token} />
                             </MarketDetails>
                         )

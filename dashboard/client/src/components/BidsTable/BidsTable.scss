@@ -1,0 +1,32 @@
+@import '../../styles/variables';
+
+.bidTable--container {
+    display: block;
+    width: 25%;
+    height: 35vh;
+    overflow: scroll;
+    scroll-snap-type: block;
+    background-color: $backgroundGrey;
+    box-shadow: #091e4240 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.bidTable--row {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    justify-content: space-between;
+}
+
+.bidTable_header--row {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background-color: $backgroundGrey;
+}

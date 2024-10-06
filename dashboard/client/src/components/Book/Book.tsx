@@ -3,12 +3,16 @@ import { useState, useEffect } from 'react';
 import BidsTable from '../BidsTable/BidsTable';
 
 const Book = ({ token }: { token: string }) => { 
-    const [book, setBook] = useState<any>(null);
+    const [bids, setBids] = useState<any>(null);
+    const [asks, setAsks] = useState<any>(null);
     const { sendMessage } = useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
         onMessage: (msg) => {
             const parsed = JSON.parse(msg.data);
             if (parsed?.event_type === `book`) {
-                setBook(parsed);
+                setBids(parsed.bids);
+                console.log('bids', parsed.bids);
+                setAsks(parsed.asks);
+                console.log('asks', parsed.asks);
             }
         },
         onError: (e) => {
@@ -27,14 +31,17 @@ const Book = ({ token }: { token: string }) => {
     })
     
     useEffect(() => {
-        console.log('book', book);
-    }, [book])
+        console.log('bids', bids, token);
+    }, [bids])
+
+    useEffect(() => { 
+        console.log('asks', asks, token);
+    }, [asks])
 
     return (
         <div>
-            <h1>Book</h1>
             {
-                book?.bids && <BidsTable bids={book.bids} />
+                bids && asks && <BidsTable asks={asks} bids={bids} />
             }
         </div>
     )
