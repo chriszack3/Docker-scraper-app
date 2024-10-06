@@ -13,7 +13,55 @@ const Book = ({ token }: { token: string }) => {
                 console.log('bids', parsed.bids);
                 setAsks(parsed.asks);
                 console.log('asks', parsed.asks);
+            } else if (parsed?.event_type === `price_change`) { 
+                console.log('price_change', parsed);
+                if (parsed.side === `BUY`) {
+                    setBids((prev: any) => {
+                        if (prev.find((bid: any) => bid.price === parsed.price)) {
+                            return prev.map((bid: any) => {
+                                if (bid.price === parsed.price) {
+                                    return {
+                                        ...bid,
+                                        size: parsed.size,
+                                    }
+                                }
+                                return bid;
+                            });
+                        } else { 
+                            return [
+                                ...prev,
+                                {
+                                    price: parsed.price,
+                                    size: parsed.size,
+                                }
+                            ]
+                        }
+                    });
+                } else {
+                    setAsks((prev: any) => {
+                        if (prev.find((ask: any) => ask.price === parsed.price)) {
+                            return prev.map((ask: any) => {
+                                if (ask.price === parsed.price) {
+                                    return {
+                                        ...ask,
+                                        size: parsed.size,
+                                    }
+                                }
+                                return ask;
+                            });
+                        } else { 
+                            return [
+                                ...prev,
+                                {
+                                    price: parsed.price,
+                                    size: parsed.size,
+                                }
+                            ]
+                        }
+                    });
+                }
             }
+
         },
         onError: (e) => {
             console.log(e);

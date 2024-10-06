@@ -1,4 +1,4 @@
-const Bid = ({ price, size }: { price: string, size: string}) => { 
+const Bid = ({ price, size }: { price: string, size: string }) => {
     return (
         <div className="bidTable--row">
             <span>{price}</span>
