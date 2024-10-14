@@ -1,19 +1,11 @@
-import useWebSocket from 'react-use-websocket';
-import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { State } from '../../utils/types';
 import BidsTable from '../BidsTable/BidsTable';
 
 const Book = ({ token }: { token: string }) => { 
-    const [bids, setBids] = useState<any>(null);
-    const [asks, setAsks] = useState<any>(null);
-    
-    useEffect(() => {
-        console.log('bids', bids, token);
-    }, [bids])
-
-    useEffect(() => { 
-        console.log('asks', asks, token);
-    }, [asks])
-
+    const liveMarkets = useSelector((state: State) => state.liveMarkets[token]);
+    const bids = liveMarkets?.bids;
+    const asks = liveMarkets?.asks;
     return (
         <div>
             {

@@ -9,8 +9,8 @@ type Trade = {
 }
 
 const BidsTable = ({ bids, asks }: { bids: Trade[], asks: Trade[] }) => { 
-    const sortedBids = bids.sort().toReversed();
-    const sortedAsks = asks.sort().toReversed();
+    const sortedBids = bids.toReversed();
+    const sortedAsks = asks.toReversed();
     return (
         <div className='contract--container'>
             <div>
