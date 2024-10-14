@@ -1,15 +1,27 @@
 import { ReactElement } from "react";
 import useWebSocket from 'react-use-websocket';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addWebSocketMessage } from "../../redux/marketsSlice";
 import { useEffect } from "react";
 import { State, Token } from "../../utils/types";
 
 const WebSocketComponent = ({ children }: { children: ReactElement }) => {
     const tokens = useSelector((state: State) => state.tokens);
-
+    const liveMarkets = useSelector((state: State) => state.liveMarkets);
+    const dispatch = useDispatch();
+    
     const { sendMessage } = useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
-        onMessage: (msg) => { 
-            console.log('msg data', JSON.parse(msg.data));
+        onMessage: (msg) => {
+            // if (typeof msg.data === 'string') { 
+            //     console.log('Warning: msg.data is typeof string\n msg.data: ', msg.data);
+            //     return;
+            // }
+            if (msg.data === "Invalid command") {
+                console.log('Warning: msg.data: ', msg.data);
+                return;
+            }
+            const parsed = JSON.parse(msg.data);
+            dispatch(addWebSocketMessage(parsed))
         },
         onOpen: () => { 
             console.log('connected');
@@ -22,13 +34,17 @@ const WebSocketComponent = ({ children }: { children: ReactElement }) => {
         }
     })
     useEffect(() => { 
-        const flatTokens = tokens.map((token: Token) => token.tokens.map((t) => t.token_id)).flat();
-        console.log('flatTokens', flatTokens);
-        sendMessage(JSON.stringify({
-            assets_ids: flatTokens,
-            type: `market`,
-        }));
+        if (tokens.length === 2) {
+            const flatTokens = tokens.map((token: Token) => token.tokens.map((t) => t.token_id)).flat();
+            sendMessage(JSON.stringify({
+                assets_ids: flatTokens,
+                type: `market`,
+            }));
+        }
     }, [tokens])
+    useEffect(() => {
+        console.log('liveMarkets', liveMarkets);
+    }, [liveMarkets])
     return (
         <div>
             { children }

@@ -18,6 +18,9 @@ export type State = {
     trackedMarkets: Market[];
     markets: MarketDetails[];
     tokens: Token[];
+    liveMarkets: {
+        [key: string]: any;
+    };
 }
 
 export type MarketDetails = {

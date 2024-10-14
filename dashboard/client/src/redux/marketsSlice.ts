@@ -7,6 +7,7 @@ export const marketsSlice = createSlice({
         trackedMarkets: [],
         markets: [],
         tokens: [],
+        liveMarkets: {},
     },
     reducers: {
         /*
@@ -29,7 +30,6 @@ export const marketsSlice = createSlice({
             if (!isDuplicate) {
                 state.markets.push(action.payload);
             }
-            console.log('state', action.payload.tokens);
             const isTokenDuplicate = state.tokens.find(token => token.question_id === action.payload.condition_id);
             if (!isTokenDuplicate) { 
                 state.tokens.push({
@@ -38,11 +38,25 @@ export const marketsSlice = createSlice({
                 });
             }
         },
+        /* 
+        * reducers for live markets
+        */
+        addWebSocketMessage: (state: State, action) => { 
+            if(action.payload.event_type === `book`) {
+                state.liveMarkets[action.payload.asset_id] = action.payload;
+            } 
+            else if (action.payload.event_type === `price_change`) {
+                console.log('price_change', action.payload);
+            }
+            else {
+                console.log('unknown event_type', action.payload);
+            }
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addTrackedMarket, removeTrackedMarket, clearTrackedMarkets, addMarket } =
+export const { addTrackedMarket, removeTrackedMarket, clearTrackedMarkets, addMarket, addWebSocketMessage } =
     marketsSlice.actions;
 
 export default marketsSlice.reducer;
