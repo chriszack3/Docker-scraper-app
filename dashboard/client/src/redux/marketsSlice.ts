@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import { State } from '../utils/types';
 
 export const marketsSlice = createSlice({
@@ -46,7 +46,24 @@ export const marketsSlice = createSlice({
                 state.liveMarkets[action.payload.asset_id] = action.payload;
             } 
             else if (action.payload.event_type === `price_change`) {
-                console.log('price_change', action.payload);
+                if (action.payload.side === `BUY`) {
+                    const bids = state.liveMarkets[action.payload.asset_id].bids;
+                    const priceExists = bids.find((bid: any) => bid.price === action.payload.price)
+                    if (priceExists) {
+                        const filteredBids = bids.filter((bid: any) => bid.price !== action.payload.price);
+                        filteredBids.push({ ...priceExists, size: action.payload.size });
+                        state.liveMarkets[action.payload.asset_id].bids = filteredBids;
+                    }
+                }
+                else if (action.payload.side === `SELL`) {
+                    const asks = state.liveMarkets[action.payload.asset_id].asks;
+                    const priceExists = asks.find((bid: any) => bid.price === action.payload.price)
+                    if (priceExists) {
+                        const filteredAsks = asks.filter((bid: any) => bid.price !== action.payload.price);
+                        filteredAsks.push({ ...priceExists, size: action.payload.size });
+                        state.liveMarkets[action.payload.asset_id].asks = filteredAsks;
+                    }
+                }
             }
             else {
                 console.log('unknown event_type', action.payload);
