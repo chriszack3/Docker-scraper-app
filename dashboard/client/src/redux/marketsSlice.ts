@@ -52,7 +52,7 @@ export const marketsSlice = createSlice({
                     if (priceExists) {
                         const filteredBids = bids.filter((bid: any) => bid.price !== action.payload.price);
                         filteredBids.push({ ...priceExists, size: action.payload.size });
-                        state.liveMarkets[action.payload.asset_id].bids = filteredBids;
+                        state.liveMarkets[action.payload.asset_id].bids = filteredBids.sort((a: any, b: any) => b.price - a.price);
                     }
                 }
                 else if (action.payload.side === `SELL`) {
@@ -61,7 +61,7 @@ export const marketsSlice = createSlice({
                     if (priceExists) {
                         const filteredAsks = asks.filter((bid: any) => bid.price !== action.payload.price);
                         filteredAsks.push({ ...priceExists, size: action.payload.size });
-                        state.liveMarkets[action.payload.asset_id].asks = filteredAsks;
+                        state.liveMarkets[action.payload.asset_id].asks = filteredAsks.sort((a: any, b: any) => a.price - b.price);
                     }
                 }
             }
