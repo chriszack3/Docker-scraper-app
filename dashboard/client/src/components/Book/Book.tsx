@@ -7,8 +7,7 @@ const Book = ({ token }: { token: string }) => {
     const liveMarkets = useSelector((state: State) => state.liveMarkets[token]);
     const bidsKey = Object.keys(liveMarkets?.bids).toReversed();
     const asksKey = Object.keys(liveMarkets?.asks).toReversed();
-    console.log('bids', bidsKey);
-    console.log('asks', asksKey);
+    
     return (
         <div>
             <div className='contract--container'>
