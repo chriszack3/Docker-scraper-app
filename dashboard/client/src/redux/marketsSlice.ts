@@ -69,11 +69,9 @@ export const marketsSlice = createSlice({
                     };
                 }
                 for (const bid of action.payload.bids) {
-                    console.log('bid', bid);
                     state.liveMarkets[action.payload.asset_id].bids[bid.price] = bid;
                 }
                 for (const ask of action.payload.asks) {
-                    console.log('ask', ask);
                     state.liveMarkets[action.payload.asset_id].asks[ask.price] = ask;
                 }
             } 

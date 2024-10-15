@@ -22,7 +22,6 @@ const Book = ({ token }: { token: string }) => {
                         </div>
                         {
                             bidsKey?.map((b) => <Trade key={token + b + 'bid'} token={token} price={b} side={'bids'} />)
-                            //sortedBids?.map((b, i) => <Bid key={uuid()} price={b.price} size={b.size} />)
                         }
                     </div>
                 </div>
@@ -36,7 +35,6 @@ const Book = ({ token }: { token: string }) => {
                         </div>
                         {
                             asksKey?.map((a) => <Trade key={token + a + 'ask'} token={token} price={a} side={'asks'} />)
-                            //sortedAsks?.map((a, i) => <Ask key={uuid()} price={a.price} size={a.size} />)
                         }
                     </div>
                 </div>
