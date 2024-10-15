@@ -5,8 +5,8 @@ import './Book.scss';
 
 const Book = ({ token }: { token: string }) => { 
     const liveMarkets = useSelector((state: State) => state.liveMarkets[token]);
-    const bidsKey = Object.keys(liveMarkets?.bids).toReversed();
-    const asksKey = Object.keys(liveMarkets?.asks).toReversed();
+    const bidsKey = Object.keys(liveMarkets?.bids).toSorted((a, b) => parseFloat(b) - parseFloat(a))
+    const asksKey = Object.keys(liveMarkets?.asks).toSorted((a, b) => parseFloat(b) - parseFloat(a)).toReversed();
     
     return (
         <div>
