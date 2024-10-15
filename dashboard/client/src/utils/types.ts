@@ -14,13 +14,46 @@ export type Token = {
     }[];
 }
 
+export type LiveMarket = {
+    [key: string]: {
+        bids: {
+            [key: string]: Trade;
+        };
+        asks: {
+            [key: string]: Trade;
+        };
+    };
+}
+
 export type State = {
     trackedMarkets: Market[];
     markets: MarketDetails[];
     tokens: Token[];
     liveMarkets: {
-        [key: string]: any;
+        [key: string]: {
+            bids: {
+                [key: string]: Trade;
+            };
+            asks: {
+                [key: string]: Trade;
+            };
+        };
     };
+}
+
+export type Trade = {
+    price: string;
+    size: string;
+}
+
+export type BookEvent = {
+    event_type: 'book';
+    asset_id: string;
+    hash: string;
+    market: string;
+    timestamp: string;
+    bids: Trade[];
+    asks: Trade[];
 }
 
 export type MarketDetails = {

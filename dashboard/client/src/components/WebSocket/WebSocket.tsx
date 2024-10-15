@@ -7,7 +7,6 @@ import { State, Token } from "../../utils/types";
 
 const WebSocketComponent = ({ children }: { children: ReactElement }) => {
     const tokens = useSelector((state: State) => state.tokens);
-    const liveMarkets = useSelector((state: State) => state.liveMarkets);
     const dispatch = useDispatch();
     
     const { sendMessage } = useWebSocket('wss://ws-subscriptions-clob.polymarket.com/ws/market', {
@@ -42,9 +41,7 @@ const WebSocketComponent = ({ children }: { children: ReactElement }) => {
             }));
         }
     }, [tokens])
-    useEffect(() => {
-        console.log('liveMarkets', liveMarkets);
-    }, [liveMarkets])
+
     return (
         <div>
             { children }

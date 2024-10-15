@@ -1,16 +1,19 @@
-import Bid from '../Bid/Bid';
+import Bid from '../Trade/Trade';
 import Ask from '../Ask/Ask';
+import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import './BidsTable.scss';
+import { LiveMarket, State } from '../../utils/types';
 
 type Trade = {
     price: string;
     size: string;
 }
 
-const BidsTable = ({ bids, asks }: { bids: Trade[], asks: Trade[] }) => { 
-    const sortedBids = bids.toSorted((a: any, b: any) => b.price - a.price);
-    const sortedAsks = asks.toSorted((a: any, b: any) => a.price - b.price);
+const BidsTable = ({ bidsKeys, asksKeys }: { bidsKeys: Record<string, LiveMarket>, asksKeys: Record<string, LiveMarket> }) => {
+    const bids = useSelector((state: State) => state.liveMarkets.bids);
+    // const sortedBids = bids.toSorted((a: any, b: any) => b.price - a.price);
+    // const sortedAsks = asks.toSorted((a: any, b: any) => a.price - b.price);
     return (
         <div className='contract--container'>
             <div>
