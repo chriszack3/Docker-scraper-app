@@ -11,9 +11,6 @@ function App() {
     const [response, setResponse] = useState<Market[]>();
 
     const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
-    const tokens = useSelector((state: State) => state.tokens);
-
-    const markets = useSelector((state: State) => state.markets);
     const dispatch = useDispatch();
 
     //runs FIRST -- happens first time component is rendered
@@ -51,7 +48,6 @@ function App() {
             <div>
                 {
                     trackedMarkets?.map((market: Market) => {
-                        console.log('market.token', market.token);
                         return (
                             <MarketDetails key={market.token} condition_id={market.token}>
                                 <h1>Yes</h1>

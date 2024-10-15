@@ -7,7 +7,7 @@ const OrderBook = ({ condition_id, outcome } : { condition_id: string, outcome: 
     const tokenObj = tokens.find((m) => m.question_id === condition_id);
     if (!tokenObj) return null;
     const token = tokenObj.tokens.find((t) => t.outcome === outcome);
-    console.log('outcome', outcome);
+
     return (
         <div>
             { 
