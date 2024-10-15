@@ -99,3 +99,14 @@ export type MarketDetails = {
     }[];
     tags: string[];
 }
+
+export type Headline = {
+    completed: boolean;
+    description: string;
+    id: number;
+    publishedAgo: string;
+    publisher: string;
+    scrapedAtMS: number;
+    title: string;
+    url: string;
+}

@@ -74,9 +74,9 @@ async function getItems() {
     });
 }
 
-async function getHeadlines() {
+async function getHeadlines(table) {
     return new Promise((acc, rej) => {
-        pool.query(`SELECT * FROM Israel_Hez_Oct`, (err, rows) => {
+        pool.query(`SELECT * FROM ${table} ORDER BY id DESC LIMIT 10;`, (err, rows) => {
             if (err) return rej(err);
             acc(
                 rows.map((item) =>

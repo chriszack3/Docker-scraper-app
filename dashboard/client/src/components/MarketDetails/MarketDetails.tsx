@@ -15,7 +15,9 @@ const Market = ({ children, condition_id }: {
         <div className="marketDetails_container">
             <h2>{question}</h2>
             <p>{description}</p>
-            {children}
+            <div className="marketDetails_container--children">
+                {children}
+            </div>
         </div>
     )
 }

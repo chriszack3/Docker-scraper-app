@@ -1,0 +1,19 @@
+.bidTable--row {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    justify-content: space-between;
+}
+
+.bidTable--row>span {
+    width: 33%;
+}
+
+.bidTable--row>span:nth-child(2) {
+    text-align: right;
+}
+
+.bidTable--row>span:nth-child(3) {
+    text-align: right;
+}

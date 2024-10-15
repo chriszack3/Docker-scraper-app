@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../../utils/types";
+import './Trade.scss';
 
 const Trade = ({ token, price, side }: { 
     token: string;

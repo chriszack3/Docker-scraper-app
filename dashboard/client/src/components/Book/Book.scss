@@ -6,9 +6,8 @@
 }
 
 .contract--container>div {
-    width: 25%;
+    width: 100%;
     padding: 10px;
-
 }
 
 .bidTable--container {
@@ -23,14 +22,6 @@
     border: 2px solid black;
 }
 
-.bidTable--row {
-    display: flex;
-    border: 1px solid #ccc;
-    padding: 5px;
-    margin: 5px;
-    justify-content: space-between;
-}
-
 .bidTable_header--row {
     display: flex;
     border: 1px solid #ccc;
@@ -40,16 +31,4 @@
     position: sticky;
     top: 0;
     background-color: $backgroundGrey;
-}
-
-.bidTable--row > span {
-    width: 33%;
-}
-
-.bidTable--row>span:nth-child(2) {
-    text-align: right;
-}
-
-.bidTable--row>span:nth-child(3) {
-    text-align: right;
 }

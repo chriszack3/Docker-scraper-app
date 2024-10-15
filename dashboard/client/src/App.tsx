@@ -5,6 +5,7 @@ import { Market, State } from './utils/types';
 import MarketSelect from './components/MarketSelect/MarketSelect';
 import MarketDetails from './components/MarketDetails/MarketDetails';
 import OrderBook from './components/OrderBook/OrderBook';
+import Headlines from './components/Headlines/Headlines';
 import './App.scss';
 
 function App() {
@@ -50,10 +51,13 @@ function App() {
                     trackedMarkets?.map((market: Market) => {
                         return (
                             <MarketDetails key={market.token} condition_id={market.token}>
-                                <h1>Yes</h1>
-                                <OrderBook outcome='Yes' condition_id={market.token} />
-                                <h1>No</h1>
-                                <OrderBook outcome='No' condition_id={market.token} />
+                                <div className="orderBook_container">
+                                    <h1>Yes</h1>
+                                    <OrderBook outcome='Yes' condition_id={market.token} />
+                                    <h1>No</h1>
+                                    <OrderBook outcome='No' condition_id={market.token} />
+                                </div>
+                                <Headlines market={market} />
                             </MarketDetails>
                         )
                     })
