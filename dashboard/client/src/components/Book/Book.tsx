@@ -15,8 +15,8 @@ const Book = ({ token }: { token: string }) => {
                 <h1>Asks</h1>
                 <div className='contract_Asks--container'>
                     <div className='bidTable_header--row'>
-                        <span>Price</span>
-                        <span>Size</span>
+                        <span>Price($)</span>
+                        <span>Size(# of shares)</span>
                         <span>Change</span>
                     </div>
                     <div className='bidTable--container bidTable_Asks--container'>
