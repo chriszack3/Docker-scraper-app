@@ -54,6 +54,7 @@ export const marketsSlice = createSlice({
                         // initialize bids and asks properties as empty objects
                         bids: {},
                         asks: {},
+                        lastTrade: null,
                     }
                 }
                 for(const bidState in state.liveMarkets[action.payload.asset_id].bids) {
@@ -89,6 +90,9 @@ export const marketsSlice = createSlice({
                         size: action.payload.size,
                     }
                 }
+            }
+            else if (action.payload.event_type === `last_trade_price`) { 
+                state.liveMarkets[action.payload.asset_id].lastTrade = action.payload;
             }
             else {
                 console.log('unknown event_type', action.payload);

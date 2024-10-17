@@ -37,6 +37,14 @@ export type State = {
             asks: {
                 [key: string]: Trade;
             };
+            lastTrade: {
+                asset_id: string;
+                market: string;
+                price: string;
+                side: "BUY" | "SELL";
+                size: string;
+                timestamp: string;
+            } | null;
         };
     };
 }

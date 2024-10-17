@@ -61,7 +61,7 @@
 }
 
 .lastTraded--row {
-display: flex;
+    display: flex;
     border: 1px solid #ccc;
     padding: 5px;
     margin: 0px 5px;
@@ -70,4 +70,16 @@ display: flex;
     height: fit-content;
     top: 0;
     background-color: $backgroundGrey;
+}
+
+.lastTraded--row>span {
+    width: 33%;
+}
+
+.lastTraded--row>span:nth-child(2) {
+    text-align: right;
+}
+
+.lastTraded--row>span:nth-child(3) {
+    text-align: right;
 }

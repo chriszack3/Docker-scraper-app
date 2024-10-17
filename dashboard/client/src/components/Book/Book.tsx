@@ -7,7 +7,8 @@ const Book = ({ token }: { token: string }) => {
     const liveMarkets = useSelector((state: State) => state.liveMarkets[token]);
     const bidsKey = Object.keys(liveMarkets?.bids).toSorted((a, b) => parseFloat(b) - parseFloat(a))
     const asksKey = Object.keys(liveMarkets?.asks).toSorted((a, b) => parseFloat(b) - parseFloat(a)).toReversed();
-    
+    console.log('liveMarkets', liveMarkets);
+    const { lastTrade } = liveMarkets;
     return (
         <div>
             <div className='contract--container'>
@@ -26,10 +27,12 @@ const Book = ({ token }: { token: string }) => {
                     </div>
                 </div>
                 <div className='lastTraded--container'>
-                    <div className='lastTraded--row'>
-                        <span>Last Traded: </span>
-                        <span>Price Here</span>
-                        <span>Buy/Sell</span>
+                    <div style={{
+                        borderColor: lastTrade?.side === 'BUY' ? 'green' : 'red'
+                    }} className='lastTraded--row'>
+                        <span>{lastTrade?.price} - Last Traded</span>
+                        <span>{lastTrade?.size}</span>
+                        <span>{lastTrade?.side}</span>
                     </div>
                 </div>
                 <div className='contract_Bids--container'>
