@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     command: sh -c "yarn start"
     ports:
-      - 127.0.0.1:3002:3000
+      - 127.0.0.1:3001:3000
     working_dir: /app
     # volumes:
     #   - ./:/app
@@ -14,9 +14,9 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: headlines
-      MYSQL_TABLE: Another_Debate_2024
-      SEARCH_TERM: trump harris second debate
-      DATA_TOKEN: 0x78234aafc88ab34b177109a5448cd90d7d1fd4efea1983d19fd67eee78ff0239
+      MYSQL_TABLE: Israel_Iran_Response
+      SEARCH_TERM: israel iran response
+      DATA_TOKEN: 0xedb7b548a59f22986cceb2ab50e6d97df6ef5c58a10a2e755f452ef230c522bd
 
   playwright-app-2:
     build:
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     command: sh -c "yarn start"
     ports:
-      - 127.0.0.1:3001:3000
+      - 127.0.0.1:3002:3000
     working_dir: /app
     # volumes:
     #   - ./:/app
@@ -36,6 +36,25 @@ services:
       MYSQL_TABLE: Trump_Rogan_2024
       SEARCH_TERM: trump joe rogan
       DATA_TOKEN: 0x6689c157a7c57f0ee8ab7feace215061cbb8828191854fe81f17976ef33b023e
+
+  playwright-app-3:
+    build:
+      context: ./playwright
+      dockerfile: Dockerfile
+    command: sh -c "yarn start"
+    ports:
+      - 127.0.0.1:3003:3000
+    working_dir: /app
+    # volumes:
+    #   - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: headlines
+      MYSQL_TABLE: Trump_Detroit_Rally
+      SEARCH_TERM: trump detroit rally
+      DATA_TOKEN: 0x75fe35ae228b5cc76709a5313435c979b25a464394e7cab9a1429928f055a01e
 
   proxy:
     image: traefik:v2.11

@@ -33,7 +33,8 @@ const WebSocketComponent = ({ children }: { children: ReactElement }) => {
         }
     })
     useEffect(() => { 
-        if (tokens.length === 2) {
+        //How many markets we are tracking
+        if (tokens.length === 3) {
             const flatTokens = tokens.map((token: Token) => token.tokens.map((t) => t.token_id)).flat();
             sendMessage(JSON.stringify({
                 assets_ids: flatTokens,
