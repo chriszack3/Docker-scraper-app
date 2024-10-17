@@ -1,13 +1,27 @@
 @import '../../styles/variables';
 
 .contract--container {
-    display: flex;
-    width: 100%;
+    display: block;
+    width: 40%;
+    padding: 10px;
+    background-color: $backgroundGrey;
+    box-shadow: #091e4240 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    border-radius: 5px;
+    border: 2px solid black;
 }
 
 .contract--container>div {
-    width: 100%;
-    padding: 10px;
+    width: 98%;
+}
+
+.contract_Asks--container {
+    border: 2px solid green;
+    border-bottom: none;
+}
+
+.contract_Bids--container {
+    border: 2px solid red;
+    border-top: none;
 }
 
 .bidTable--container {
@@ -16,10 +30,6 @@
     scroll-snap-align: end;
     height: 35vh;
     overflow: scroll;
-    background-color: $backgroundGrey;
-    box-shadow: #091e4240 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-    border-radius: 5px;
-    border: 2px solid black;
 }
 
 .bidTable_header--row {
@@ -28,7 +38,36 @@
     padding: 5px;
     margin: 5px;
     justify-content: space-between;
-    position: sticky;
+    // position: sticky;
+    height: fit-content;
+    top: 0;
+    background-color: $backgroundGrey;
+}
+
+.bidTable_Asks--container {
+    display: flex;
+    flex-direction: column-reverse;
+    border-bottom: none;
+}
+
+.bidTable_Bids--container {
+    border-top: none; 
+}
+
+.lastTraded--container {
+    border: 2px solid black;
+    border-top: none;
+    border-bottom: none;
+}
+
+.lastTraded--row {
+display: flex;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0px 5px;
+    justify-content: space-between;
+    // position: sticky;
+    height: fit-content;
     top: 0;
     background-color: $backgroundGrey;
 }
