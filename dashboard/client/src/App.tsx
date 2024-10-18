@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMarket } from './redux/marketsSlice';
 import { Market, State } from './utils/types';
@@ -10,6 +10,7 @@ import './App.scss';
 
 function App() {
     const [response, setResponse] = useState<Market[]>();
+    const [yesNo, setYesNo] = useState<string>('Yes');
 
     const trackedMarkets = useSelector((state: State) => state.trackedMarkets);
     const dispatch = useDispatch();
@@ -52,10 +53,23 @@ function App() {
                         return (
                             <MarketDetails key={market.token} condition_id={market.token}>
                                 <div className="orderBook_container">
-                                    <h1>Yes</h1>
-                                    <OrderBook outcome='Yes' condition_id={market.token} />
-                                    <h1>No</h1>
-                                    <OrderBook outcome='No' condition_id={market.token} />
+                                    {
+                                        yesNo === 'Yes' ? 
+                                            <Fragment>
+                                                <div className="yesNo_container">
+                                                    <button className="yesNo_button--active" onClick={() => setYesNo('Yes')}>Yes</button>
+                                                    <button onClick={() => setYesNo('No')}>No</button>
+                                                </div>
+                                                <OrderBook outcome='Yes' condition_id={market.token} />
+                                            </Fragment> : 
+                                            <Fragment>
+                                                <div className="yesNo_container">
+                                                    <button onClick={() => setYesNo('Yes')}>Yes</button>
+                                                    <button className="yesNo_button--active" onClick={() => setYesNo('No')}>No</button>
+                                                </div>
+                                                <OrderBook outcome='No' condition_id={market.token} />
+                                            </Fragment>
+                                    }
                                 </div>
                                 <Headlines market={market} />
                             </MarketDetails>
