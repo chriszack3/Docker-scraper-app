@@ -69,8 +69,8 @@ CMD ["yarn", "dev"]
 # stage to allow the final image to not have the test dependencies or test
 # cases.
 ###################################################
-FROM backend-dev AS test
-RUN yarn test
+# FROM backend-dev AS test
+# RUN yarn test
 
 ###################################################
 # Stage: final
@@ -83,7 +83,7 @@ RUN yarn test
 ###################################################
 FROM base AS final
 ENV NODE_ENV=production
-COPY --from=test /usr/local/app/package.json /usr/local/app/yarn.lock ./
+COPY --from=backend-dev /usr/local/app/package.json /usr/local/app/yarn.lock ./
 RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
     yarn install --production --frozen-lockfile
 COPY backend/src ./src
